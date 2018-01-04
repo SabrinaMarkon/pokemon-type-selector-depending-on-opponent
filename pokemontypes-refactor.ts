@@ -27,38 +27,58 @@ enum PokemonTypes {
     Water = 'Electric, Grass'
 }
 
-//// REFACTOR 1 (again, I'm practicing so excuse the mess)
+//// REFACTOR 1 to try to make oop code more reuseable.
 //// "If tomorrow I write another program, will I be able to reuse some of this code?"
 
 
 /**
  * Interface Responsibility: Defines types of elements and their properties that should be used.
+ * 
+ * Classes can use these to build page elements and display them.
  */
 interface PageElements {
     'elementtype': string;
     'elementid': string;
     'styles': string;
+    'options'?: object;
 }
 
 /**
- * Class Responsibility: Show default display and select.
+ * Class Responsibility: Show default page display. 
+ * 
+ * In this particular app, the select box 
+ * for the pokemon types and the div where the weaknesses will show should be created.
+ * Code could be reused, however, to build other elements.
  */
 class DisplayElements implements PageElements {
     elementtype: string;
     elementid: string;
     styles: string;
-    constructor(elementtype: string, elementid: string, styles: string) {
-        this.elementtype = elementtype;
+    constructor() {
         // create wrapper div on page.
-        let wrapperdiv: Element = document.createElement('div');
+        let wrapperdiv: HTMLElement = document.createElement('div');
+        wrapperdiv.id = 'wrapper';
+        wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;';
         document.body.appendChild(wrapperdiv);
     }
-    displayElement(elementtype: string, elementid: string, styles: string) : string {
-        let printtopage: Element = document.createElement(elementtype);
+    displayElement(elementtype: string, elementid: string, styles: string, options: object) : void {
+        let printtopage: HTMLElement = document.createElement(elementtype);
         printtopage.id = elementid;
-        (printtopage as HTMLElement).style.cssText = styles;
+        // if the element type is a select box and there is an options enum with items in it, use
+        // them to populate the select box with its options.
+        if (elementtype === 'select') {
+            for (var enumItemName in options) {
+                let option = document.createElement('option');
+                option.value = enumItemName;
+                option.text = enumItemName;
+                printtopage.appendChild(option);
+            }
+        }
+        // the Element type does not support the 'style' property so cast to HTMLElement.
+        // Could have done in the first place, but wanted to practice type casting.
+        (printtopage as HTMLElement).style.cssText = styles; 
         document.getElementById('wrapper').appendChild(printtopage);
-        return elementtype;
+        return;
     }
 }
 
@@ -68,3 +88,8 @@ class DisplayElements implements PageElements {
 class ShowWeakneses {
 
 }
+
+
+// works:
+let test: DisplayElements = new DisplayElements();
+test.displayElement('select', 'testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);

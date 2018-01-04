@@ -83,22 +83,3 @@ selectboxdiv.onchange = function (event) {
         weaknesses.getWeaknesses(selectvalue, weaknessdiv);
     }
 };
-/**
- * Interface Responsibility: Defines types of elements that can be used.
- */
-/**
- * Class Responsibility: Show default display and select.
- */
-var DisplayElements = /** @class */ (function () {
-    function DisplayElements() {
-    }
-    return DisplayElements;
-}());
-/**
- * Class Responsibility: Show weaknesses of selected pokemon type.
- */
-var ShowWeakneses = /** @class */ (function () {
-    function ShowWeakneses() {
-    }
-    return ShowWeakneses;
-}());

@@ -103,30 +103,5 @@ div.style.cssText = 'font: 18px Tahoma #000; margin: auto; padding: 20px;';
  }
 
 
-//// REFACTOR 1 (again, I'm practicing so excuse the mess)
-//// "If tomorrow I write another program, will I be able to reuse some of this code?"
-/**
- * Interface Responsibiity: Defines css styles available for elements
- */
-interface CSSStyles {
-    'width', 'height', 'margin', 'padding', 'font': string;
-}
 
-/**
- * Interface Responsibility: Defines types of elements that can be used.
- */
-
-/**
- * Class Responsibility: Show default display and select.
- */
-class DisplayElements {
-
-}
-
-/**
- * Class Responsibility: Show weaknesses of selected pokemon type.
- */
-class ShowWeakneses {
-
-}
 
