@@ -51,35 +51,42 @@ class Weaknesses implements Pokemon {
     }
 }
 
+let wrapperdiv: HTMLElement = document.createElement('div');
+wrapperdiv.id = 'wrapper';
+document.body.appendChild(wrapperdiv);
+wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px;';
+
 // get all pokemon type names to build the dropdown box.
 // make select box:
-let selectbox: HTMLElement = document.createElement('select');
-selectbox.id = 'pokemontype';
+let selectboxdiv: HTMLElement = document.createElement('select');
+selectboxdiv.id = 'pokemontype';
+selectboxdiv.style.cssText = 'font: 18px Tahoma #000; margin: auto; padding: 20px;';
 // add default option:
 let option = document.createElement('option');
 option.value = 'none';
 option.text = "Select a Pokemon Type!";
-selectbox.appendChild(option);
+selectboxdiv.appendChild(option);
 // add each pokemon option:
 for (var enumPokemonName in PokemonTypes) {
     //allpokemontypes.push(enumPokemonName);
     let option = document.createElement('option');
     option.value = enumPokemonName;
     option.text = enumPokemonName;
-    selectbox.appendChild(option);    
+    selectboxdiv.appendChild(option);    
  }
  // put the select box on the page.
- //console.log(selectbox);
-document.body.appendChild(selectbox);
+ //console.log(selectboxdiv);
+document.getElementById(wrapperdiv.id).appendChild(selectboxdiv);
 
 let div: HTMLElement = document.createElement('div');
 let weaknessdiv: string = 'weaknessdiv';
 div.id = weaknessdiv;
-document.body.appendChild(div);
+document.getElementById(wrapperdiv.id).appendChild(div);
+div.style.cssText = 'font: 18px Tahoma #000; margin: auto; padding: 20px;';
 
 // when the user changes the pokemon type in the dropdown box.
- selectbox.onchange = (event) => {
-    let selectvalue: string = (<HTMLInputElement>document.getElementById(selectbox.id)).value;
+ selectboxdiv.onchange = (event) => {
+    let selectvalue: string = (<HTMLInputElement>document.getElementById(selectboxdiv.id)).value;
     if (selectvalue === 'none') {
         // console.log('none');
         // nothing should happen

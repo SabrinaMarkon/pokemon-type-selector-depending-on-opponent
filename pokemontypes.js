@@ -41,33 +41,39 @@ var Weaknesses = /** @class */ (function () {
     Weaknesses.alltypes = PokemonTypes;
     return Weaknesses;
 }());
+var wrapperdiv = document.createElement('div');
+wrapperdiv.id = 'wrapper';
+document.body.appendChild(wrapperdiv);
+wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px;';
 // get all pokemon type names to build the dropdown box.
 // make select box:
-var selectbox = document.createElement('select');
-selectbox.id = 'pokemontype';
+var selectboxdiv = document.createElement('select');
+selectboxdiv.id = 'pokemontype';
+selectboxdiv.style.cssText = 'font: 18px Tahoma #000; margin: auto; padding: 20px;';
 // add default option:
 var option = document.createElement('option');
 option.value = 'none';
 option.text = "Select a Pokemon Type!";
-selectbox.appendChild(option);
+selectboxdiv.appendChild(option);
 // add each pokemon option:
 for (var enumPokemonName in PokemonTypes) {
     //allpokemontypes.push(enumPokemonName);
     var option_1 = document.createElement('option');
     option_1.value = enumPokemonName;
     option_1.text = enumPokemonName;
-    selectbox.appendChild(option_1);
+    selectboxdiv.appendChild(option_1);
 }
 // put the select box on the page.
-//console.log(selectbox);
-document.body.appendChild(selectbox);
+//console.log(selectboxdiv);
+document.getElementById(wrapperdiv.id).appendChild(selectboxdiv);
 var div = document.createElement('div');
 var weaknessdiv = 'weaknessdiv';
 div.id = weaknessdiv;
-document.body.appendChild(div);
+document.getElementById(wrapperdiv.id).appendChild(div);
+div.style.cssText = 'font: 18px Tahoma #000; margin: auto; padding: 20px;';
 // when the user changes the pokemon type in the dropdown box.
-selectbox.onchange = function (event) {
-    var selectvalue = document.getElementById(selectbox.id).value;
+selectboxdiv.onchange = function (event) {
+    var selectvalue = document.getElementById(selectboxdiv.id).value;
     if (selectvalue === 'none') {
         // console.log('none');
         // nothing should happen
