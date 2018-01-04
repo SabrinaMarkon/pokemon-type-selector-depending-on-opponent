@@ -20,7 +20,7 @@ var PokemonTypes;
     PokemonTypes["Poison"] = "Ground, Psychic";
     PokemonTypes["Steel"] = "Fire, Fight, Ground";
     PokemonTypes["Dragon"] = "Ice, Dragon, Fairy";
-    PokemonTypes["Fighting"] = "Fying, Psychic, Fairy";
+    PokemonTypes["Fighting"] = "Flying, Psychic, Fairy";
     PokemonTypes["Ghost"] = "Ghost, Dark";
     PokemonTypes["Ice"] = "Fire, Fight, Rock, Steel";
     PokemonTypes["Psychic"] = "Bug, Ghost, Dark";
@@ -75,8 +75,7 @@ div.style.cssText = 'font: 18px Tahoma #000; margin: auto; padding: 20px;';
 selectboxdiv.onchange = function (event) {
     var selectvalue = document.getElementById(selectboxdiv.id).value;
     if (selectvalue === 'none') {
-        // console.log('none');
-        // nothing should happen
+        document.getElementById(weaknessdiv).textContent = '';
     }
     else {
         //console.log(selectvalue);

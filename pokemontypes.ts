@@ -20,7 +20,7 @@ enum PokemonTypes {
     Poison = 'Ground, Psychic',
     Steel = 'Fire, Fight, Ground',
     Dragon = 'Ice, Dragon, Fairy',
-    Fighting = 'Fying, Psychic, Fairy',
+    Fighting = 'Flying, Psychic, Fairy',
     Ghost = 'Ghost, Dark',
     Ice = 'Fire, Fight, Rock, Steel',
     Psychic = 'Bug, Ghost, Dark',
@@ -88,8 +88,7 @@ div.style.cssText = 'font: 18px Tahoma #000; margin: auto; padding: 20px;';
  selectboxdiv.onchange = (event) => {
     let selectvalue: string = (<HTMLInputElement>document.getElementById(selectboxdiv.id)).value;
     if (selectvalue === 'none') {
-        // console.log('none');
-        // nothing should happen
+        document.getElementById(weaknessdiv).textContent = '';
     } else {
         //console.log(selectvalue);
         let weaknesses: Weaknesses = new Weaknesses(selectvalue, weaknessdiv);
