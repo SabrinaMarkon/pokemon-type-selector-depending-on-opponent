@@ -26,6 +26,13 @@ var PokemonTypes;
     PokemonTypes["Psychic"] = "Bug, Ghost, Dark";
     PokemonTypes["Water"] = "Electric, Grass";
 })(PokemonTypes || (PokemonTypes = {}));
+var CatTypes;
+(function (CatTypes) {
+    CatTypes[CatTypes["Squeebz"] = 0] = "Squeebz";
+    CatTypes[CatTypes["Benji"] = 1] = "Benji";
+    CatTypes[CatTypes["Nigel"] = 2] = "Nigel";
+    CatTypes[CatTypes["Bean"] = 3] = "Bean";
+})(CatTypes || (CatTypes = {}));
 /**
  * Class Responsibility: Show default page display.
  *
@@ -47,11 +54,19 @@ var DisplayElements = /** @class */ (function () {
         // if the element type is a select box and there is an options enum with items in it, use
         // them to populate the select box with its options.
         if (elementtype === 'select') {
+            // add the default option:
+            var defaultoption = document.createElement('option');
+            defaultoption.value = '';
+            defaultoption.text = 'Select one...';
+            printtopage.appendChild(defaultoption);
             for (var enumItemName in options) {
-                var option = document.createElement('option');
-                option.value = enumItemName;
-                option.text = enumItemName;
-                printtopage.appendChild(option);
+                // only use the names in the enum.
+                if (isNaN(parseInt(enumItemName, 10))) {
+                    var option = document.createElement('option');
+                    option.value = enumItemName;
+                    option.text = enumItemName;
+                    printtopage.appendChild(option);
+                }
             }
         }
         // the Element type does not support the 'style' property so cast to HTMLElement.
@@ -72,4 +87,6 @@ var ShowWeakneses = /** @class */ (function () {
 }());
 // works:
 var test = new DisplayElements();
+// for each item we want to add, execute displayElement()
 test.displayElement('select', 'testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
+test.displayElement('select', 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);

@@ -27,6 +27,9 @@ enum PokemonTypes {
     Water = 'Electric, Grass'
 }
 
+enum CatTypes {
+    Squeebz, Benji, Nigel, Bean
+}
 //// REFACTOR 1 to try to make oop code more reuseable.
 //// "If tomorrow I write another program, will I be able to reuse some of this code?"
 
@@ -67,11 +70,19 @@ class DisplayElements implements PageElements {
         // if the element type is a select box and there is an options enum with items in it, use
         // them to populate the select box with its options.
         if (elementtype === 'select') {
+            // add the default option:
+            let defaultoption = document.createElement('option');
+            defaultoption.value = '';
+            defaultoption.text = 'Select one...';
+            printtopage.appendChild(defaultoption);
             for (var enumItemName in options) {
-                let option = document.createElement('option');
-                option.value = enumItemName;
-                option.text = enumItemName;
-                printtopage.appendChild(option);
+                // only use the names in the enum.
+                if (isNaN(parseInt(enumItemName, 10))) {
+                    let option = document.createElement('option');
+                    option.value = enumItemName;
+                    option.text = enumItemName;
+                    printtopage.appendChild(option);     
+                }
             }
         }
         // the Element type does not support the 'style' property so cast to HTMLElement.
@@ -92,4 +103,7 @@ class ShowWeakneses {
 
 // works:
 let test: DisplayElements = new DisplayElements();
+// for each item we want to add, execute displayElement()
 test.displayElement('select', 'testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
+
+test.displayElement('select', 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
