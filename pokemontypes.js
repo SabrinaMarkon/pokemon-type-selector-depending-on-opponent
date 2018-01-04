@@ -44,7 +44,7 @@ var Weaknesses = /** @class */ (function () {
 var wrapperdiv = document.createElement('div');
 wrapperdiv.id = 'wrapper';
 document.body.appendChild(wrapperdiv);
-wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px;';
+wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;';
 // get all pokemon type names to build the dropdown box.
 // make select box:
 var selectboxdiv = document.createElement('select');
@@ -83,3 +83,22 @@ selectboxdiv.onchange = function (event) {
         weaknesses.getWeaknesses(selectvalue, weaknessdiv);
     }
 };
+/**
+ * Interface Responsibility: Defines types of elements that can be used.
+ */
+/**
+ * Class Responsibility: Show default display and select.
+ */
+var DisplayElements = /** @class */ (function () {
+    function DisplayElements() {
+    }
+    return DisplayElements;
+}());
+/**
+ * Class Responsibility: Show weaknesses of selected pokemon type.
+ */
+var ShowWeakneses = /** @class */ (function () {
+    function ShowWeakneses() {
+    }
+    return ShowWeakneses;
+}());
