@@ -39,29 +39,44 @@ enum CatTypes {
  * 
  * Classes can use these to build page elements and display them.
  */
-interface PageElements {
+interface AllElementsRequire {
     'elementtype': string;
-    'elementid': string;
+    'elementidname': string;
     'styles': string;
-    'options'?: object;
+    'options'?: AllOptionsRequire;
 }
 
 /**
- * Class Responsibility: Show default page display. 
+ * Interface Responsibility: Defines the two fields needed to customize
+ * an html element, such as options for a select box, text for a div, etc.
  * 
- * In this particular app, the select box 
- * for the pokemon types and the div where the weaknesses will show should be created.
- * Code could be reused, however, to build other elements.
+ * The AllElementsRequire interface includes these in the optional options field.
  */
-class DisplayElements implements PageElements {
+interface AllOptionsRequire {
+    optiontype: string;
+    optiondata: object;
+}
+
+/**
+ * Class Responsibility: Populating fields to build the html element, and
+ * build the wrapper div that encloses all other html elements. 
+ */
+class DisplayElements {
     elementtype: string;
-    elementid: string;
+    elementidname: string;
     styles: string;
-    constructor() {
-        // create wrapper div on page to contain the rest of it.
+    options: AllOptionsRequire;
+    constructor(myelementrequires: AllElementsRequire) {
+        this.elementtype = myelementrequires.elementtype;
+        this.elementidname = myelementrequires.elementidname;
+        this.styles = myelementrequires.styles;
+        this.options = myelementrequires.options;
+    }
+    makeWrapperDiv() {
+        // create wrapper div on page to contain everything else on the page.
         let wrapperdiv: HTMLElement = document.createElement('div');
         wrapperdiv.id = 'wrapper';
-        wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;';
+        //wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;'; - maybe don't want here.
         document.body.appendChild(wrapperdiv);
     }
 }
@@ -109,7 +124,6 @@ class ShowWeakneses {
 
 
 // works:
-//let wrappertest: DisplayElements = new DisplayElements();
 let selecttest: makeSelectBox = new makeSelectBox();
 // for each item we want to add, execute displayElement()
 selecttest.addElement('testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
