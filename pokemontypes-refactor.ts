@@ -58,40 +58,47 @@ class DisplayElements implements PageElements {
     elementid: string;
     styles: string;
     constructor() {
-        // create wrapper div on page.
+        // create wrapper div on page to contain the rest of it.
         let wrapperdiv: HTMLElement = document.createElement('div');
         wrapperdiv.id = 'wrapper';
         wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;';
         document.body.appendChild(wrapperdiv);
     }
-    displayElement(elementtype: string, elementid: string, styles: string, options: object) : void {
-        let printtopage: HTMLElement = document.createElement(elementtype);
-        printtopage.id = elementid;
-        // if the element type is a select box and there is an options enum with items in it, use
-        // them to populate the select box with its options.
-        if (elementtype === 'select') {
-            // add the default option:
-            let defaultoption = document.createElement('option');
-            defaultoption.value = '';
-            defaultoption.text = 'Select one...';
-            printtopage.appendChild(defaultoption);
-            for (var enumItemName in options) {
-                // only use the names in the enum.
-                if (isNaN(parseInt(enumItemName, 10))) {
-                    let option = document.createElement('option');
-                    option.value = enumItemName;
-                    option.text = enumItemName;
-                    printtopage.appendChild(option);     
-                }
+}
+
+/**
+ * Class Responsibility: Create a select box.
+ */
+class makeSelectBox extends DisplayElements {
+    addElement(elementidname: string, styles: string, options: object): void {
+        let elementtype: string = 'select';
+        let addtopage: HTMLElement = document.createElement(elementtype);
+        addtopage.id = elementidname;
+        let defaultoption = document.createElement('option');
+        defaultoption.value = '';
+        defaultoption.text = 'Select one...';
+        addtopage.appendChild(defaultoption);
+        for (var enumItemName in options) {
+            // only use the names in the enum.
+            if (isNaN(parseInt(enumItemName, 10))) {
+                let option = document.createElement('option');
+                option.value = enumItemName;
+                option.text = enumItemName;
+                addtopage.appendChild(option);     
             }
         }
-        // the Element type does not support the 'style' property so cast to HTMLElement.
-        // Could have done in the first place, but wanted to practice type casting.
-        (printtopage as HTMLElement).style.cssText = styles; 
-        document.getElementById('wrapper').appendChild(printtopage);
+        addtopage.style.cssText = styles; 
+        document.getElementById('wrapper').appendChild(addtopage);
         return;
     }
 }
+
+ /**
+  * Class Responsibility: Create a div.
+  */
+class makeDiv extends DisplayElements {
+}
+
 
 /**
  * Class Responsibility: Show weaknesses of selected pokemon type.
@@ -102,8 +109,13 @@ class ShowWeakneses {
 
 
 // works:
-let test: DisplayElements = new DisplayElements();
+//let wrappertest: DisplayElements = new DisplayElements();
+let selecttest: makeSelectBox = new makeSelectBox();
 // for each item we want to add, execute displayElement()
-test.displayElement('select', 'testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
+selecttest.addElement('testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
 
-test.displayElement('select', 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
+//selecttest.addElement('div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', null); // need to pass content!
+
+selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
+
+//selecttest.addElement('div2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', null);

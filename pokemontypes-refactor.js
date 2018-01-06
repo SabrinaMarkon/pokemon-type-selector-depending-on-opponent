@@ -4,6 +4,16 @@
  * January 2, 2018 Happy New Year! :)
  * Pick a pokemon type and see which other types are most powerful against it.
  */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 // all 18 pokemon types and weaknesses (as of January 2018)
 var PokemonTypes;
 (function (PokemonTypes) {
@@ -42,41 +52,55 @@ var CatTypes;
  */
 var DisplayElements = /** @class */ (function () {
     function DisplayElements() {
-        // create wrapper div on page.
+        // create wrapper div on page to contain the rest of it.
         var wrapperdiv = document.createElement('div');
         wrapperdiv.id = 'wrapper';
         wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;';
         document.body.appendChild(wrapperdiv);
     }
-    DisplayElements.prototype.displayElement = function (elementtype, elementid, styles, options) {
-        var printtopage = document.createElement(elementtype);
-        printtopage.id = elementid;
-        // if the element type is a select box and there is an options enum with items in it, use
-        // them to populate the select box with its options.
-        if (elementtype === 'select') {
-            // add the default option:
-            var defaultoption = document.createElement('option');
-            defaultoption.value = '';
-            defaultoption.text = 'Select one...';
-            printtopage.appendChild(defaultoption);
-            for (var enumItemName in options) {
-                // only use the names in the enum.
-                if (isNaN(parseInt(enumItemName, 10))) {
-                    var option = document.createElement('option');
-                    option.value = enumItemName;
-                    option.text = enumItemName;
-                    printtopage.appendChild(option);
-                }
-            }
-        }
-        // the Element type does not support the 'style' property so cast to HTMLElement.
-        // Could have done in the first place, but wanted to practice type casting.
-        printtopage.style.cssText = styles;
-        document.getElementById('wrapper').appendChild(printtopage);
-        return;
-    };
     return DisplayElements;
 }());
+/**
+ * Class Responsibility: Create a select box.
+ */
+var makeSelectBox = /** @class */ (function (_super) {
+    __extends(makeSelectBox, _super);
+    function makeSelectBox() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    makeSelectBox.prototype.addElement = function (elementidname, styles, options) {
+        var elementtype = 'select';
+        var addtopage = document.createElement(elementtype);
+        addtopage.id = elementidname;
+        var defaultoption = document.createElement('option');
+        defaultoption.value = '';
+        defaultoption.text = 'Select one...';
+        addtopage.appendChild(defaultoption);
+        for (var enumItemName in options) {
+            // only use the names in the enum.
+            if (isNaN(parseInt(enumItemName, 10))) {
+                var option = document.createElement('option');
+                option.value = enumItemName;
+                option.text = enumItemName;
+                addtopage.appendChild(option);
+            }
+        }
+        addtopage.style.cssText = styles;
+        document.getElementById('wrapper').appendChild(addtopage);
+        return;
+    };
+    return makeSelectBox;
+}(DisplayElements));
+/**
+ * Class Responsibility: Create a div.
+ */
+var makeDiv = /** @class */ (function (_super) {
+    __extends(makeDiv, _super);
+    function makeDiv() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return makeDiv;
+}(DisplayElements));
 /**
  * Class Responsibility: Show weaknesses of selected pokemon type.
  */
@@ -86,7 +110,10 @@ var ShowWeakneses = /** @class */ (function () {
     return ShowWeakneses;
 }());
 // works:
-var test = new DisplayElements();
+//let wrappertest: DisplayElements = new DisplayElements();
+var selecttest = new makeSelectBox();
 // for each item we want to add, execute displayElement()
-test.displayElement('select', 'testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
-test.displayElement('select', 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
+selecttest.addElement('testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
+//selecttest.addElement('div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', null); // need to pass content!
+selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
+//selecttest.addElement('div2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', null); 
