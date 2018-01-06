@@ -54,7 +54,7 @@ interface AllElementsRequire {
  */
 interface AllOptionsRequire {
     optiontype: string;
-    optiondata: object;
+    optiondata: any;
 }
 
 /**
@@ -79,21 +79,26 @@ class DisplayElements {
         //wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;'; - maybe don't want here.
         document.body.appendChild(wrapperdiv);
     }
+    addAllToPage(addtopage) {
+        // print all the html elements in the array to the page.
+
+    }
 }
 
 /**
  * Class Responsibility: Create a select box.
  */
 class makeSelectBox extends DisplayElements {
-    addElement(elementidname: string, styles: string, options: object): void {
-        let elementtype: string = 'select';
-        let addtopage: HTMLElement = document.createElement(elementtype);
-        addtopage.id = elementidname;
+    addElement(): void {
+        let addtopage: HTMLElement = document.createElement(this.elementtype);
+        addtopage.id = this.elementidname;
+        // make the top default option in the select box:
         let defaultoption = document.createElement('option');
         defaultoption.value = '';
         defaultoption.text = 'Select one...';
         addtopage.appendChild(defaultoption);
-        for (var enumItemName in options) {
+        // make all the other options in the select box:
+        for (var enumItemName in this.options.optiondata) {
             // only use the names in the enum.
             if (isNaN(parseInt(enumItemName, 10))) {
                 let option = document.createElement('option');
@@ -102,7 +107,7 @@ class makeSelectBox extends DisplayElements {
                 addtopage.appendChild(option);     
             }
         }
-        addtopage.style.cssText = styles; 
+        addtopage.style.cssText = this.styles; 
         document.getElementById('wrapper').appendChild(addtopage);
         return;
     }
@@ -112,6 +117,15 @@ class makeSelectBox extends DisplayElements {
   * Class Responsibility: Create a div.
   */
 class makeDiv extends DisplayElements {
+    addElement(): void {
+        let addtopage: HTMLElement = document.createElement(this.elementtype);
+        addtopage.id = this.elementidname;
+        // write the text, which is in optiondata, into the div.
+        addtopage.textContent = this.options.optiondata;
+        addtopage.style.cssText = this.styles;
+        document.getElementById('wrapper').appendChild(addtopage);
+        return;
+    }
 }
 
 
