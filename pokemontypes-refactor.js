@@ -48,20 +48,21 @@ var CatTypes;
  * build the wrapper div that encloses all other html elements.
  */
 var DisplayElements = /** @class */ (function () {
-    // constructor(myelementrequires: AllElementsRequire) {
-    //     this.elementtype = myelementrequires.elementtype;
-    //     this.elementidname = myelementrequires.elementidname;
-    //     this.styles = myelementrequires.styles;
-    //     this.options = myelementrequires.options;
-    // }
-    function DisplayElements(elementtype, elementidname, styles, options) {
-        this.elementtype = elementtype;
-        this.elementidname = elementidname;
-        this.styles = styles;
-        this.options = options;
-        this.options.optiontype = options.optiontype;
-        this.options.optiondata = options.optiondata;
+    function DisplayElements(myelementrequires) {
+        this.elementtype = myelementrequires.elementtype;
+        this.elementidname = myelementrequires.elementidname;
+        this.styles = myelementrequires.styles;
+        this.options = myelementrequires.options;
     }
+    // old way: passed arguments directly into constructor rather than interface parameter.
+    // constructor(elementtype: string, elementidname: string, styles: string, options: AllOptionsRequire) {
+    //         this.elementtype = elementtype;
+    //         this.elementidname = elementidname;
+    //         this.styles = styles;
+    //         this.options = options;
+    //         this.options.optiontype = options.optiontype; 
+    //         this.options.optiondata = options.optiondata;
+    // }
     DisplayElements.prototype.makeWrapperDiv = function () {
         // create wrapper div on page to contain everything else on the page.
         var wrapperdiv = document.createElement('div');
@@ -83,7 +84,7 @@ var makeSelectBox = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     makeSelectBox.prototype.addElement = function () {
-        var addtopage = document.createElement(this.elementtype);
+        var addtopage = document.createElement(this.elementtype); // select
         addtopage.id = this.elementidname;
         // make the top default option in the select box:
         var defaultoption = document.createElement('option');
@@ -100,6 +101,7 @@ var makeSelectBox = /** @class */ (function (_super) {
                 addtopage.appendChild(option);
             }
         }
+        // add the styles:
         addtopage.style.cssText = this.styles;
         document.getElementById('wrapper').appendChild(addtopage);
         return;
@@ -115,15 +117,38 @@ var makeDiv = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     makeDiv.prototype.addElement = function () {
-        var addtopage = document.createElement(this.elementtype);
+        var addtopage = document.createElement(this.elementtype); // div
         addtopage.id = this.elementidname;
         // write the text, which is in optiondata, into the div.
         addtopage.textContent = this.options.optiondata;
+        // add the styles:
         addtopage.style.cssText = this.styles;
         document.getElementById('wrapper').appendChild(addtopage);
         return;
     };
     return makeDiv;
+}(DisplayElements));
+/**
+ * Class Responsibility: Create an image.
+ */
+var makeImage = /** @class */ (function (_super) {
+    __extends(makeImage, _super);
+    function makeImage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    makeImage.prototype.addElement = function () {
+        var addtopage = document.createElement(this.elementtype); // img
+        addtopage.id = this.elementidname;
+        // add the styles:
+        addtopage.style.cssText = this.styles;
+        // add the src and alt attributes, which ar e contained in an AllImagesRequire object in optiondata.
+        var optiondata = this.options.optiondata; // ?? not sure this is right to enforce the intaerface.
+        addtopage.setAttribute('src', optiondata.imgsrc);
+        addtopage.setAttribute('alt', optiondata.imgalt);
+        document.getElementById('wrapper').appendChild(addtopage);
+        return;
+    };
+    return makeImage;
 }(DisplayElements));
 /**
  * Class Responsibility: Show weaknesses of selected pokemon type.
@@ -134,21 +159,25 @@ var ShowWeakneses = /** @class */ (function () {
     return ShowWeakneses;
 }());
 // testing things out:
-var selecttest = new makeSelectBox('select', 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', { optiontype: 'selectoptions', optiondata: PokemonTypes });
-selecttest.makeWrapperDiv();
+///////////////// SELECT BOX
+// Using interface type as arguments:
+var selectobj = { elementtype: 'select', elementidname: 'testselect1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'selectoptions', optiondata: PokemonTypes } };
+var selecttest = new makeSelectBox(selectobj);
+// Using regular boring arguments except one uses interface type:
+// let selecttest: makeSelectBox = new makeSelectBox('select', 'testselect1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', {optiontype: 'selectoptions', optiondata: PokemonTypes});
+selecttest.makeWrapperDiv(); // we need the wrapper div first that everything else nests in. Only need to do once.
 selecttest.addElement();
-var divtest = new makeDiv('div', 'div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', { optiontype: 'text', optiondata: 'I like cats' });
+///////////////// DIV
+// Using interface type as arguments:
+var divobj = { elementtype: 'div', elementidname: 'testdiv1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'I like cats!' } };
+var divtest = new makeDiv(divobj);
+// Using regular boring arguments except one uses interface type:
+// let divtest: makeDiv = new makeDiv('div', 'testdiv1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', {optiontype: 'text', optiondata: 'I like cats'});
 divtest.addElement();
-// // works:
-// let selecttest: makeSelectBox = new makeSelectBox();
-// let divtest: makeDiv = new makeDiv();
-// // for each item we want to add, execute displayElement()
-// selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
-// divtest.addElement('div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', 'cats'); // need to pass content!
-// selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
-// divtest.addElement('div2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', 'i like cats');
-// // elementtype: string;
-// // elementidname: string;
-// // styles: string;
-// // options: AllOptionsRequire;
-// 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes
+///////////////// IMAGE
+// Using interface type as arguments:
+var imgobj = { elementtype: 'img', elementidname: 'testimg1', styles: 'margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'pikachu.jpg', imgalt: 'Pikachu' } } };
+var imgtest = new makeImage(imgobj);
+// Using regular boring arguments except one uses interface type:
+// let imgtest: makeImage = new makeImage('img', 'testimg1', 'margin: auto; padding: 20px;', {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}});
+imgtest.addElement();
