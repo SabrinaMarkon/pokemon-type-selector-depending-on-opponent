@@ -66,11 +66,19 @@ class DisplayElements {
     elementidname: string;
     styles: string;
     options: AllOptionsRequire;
-    constructor(myelementrequires: AllElementsRequire) {
-        this.elementtype = myelementrequires.elementtype;
-        this.elementidname = myelementrequires.elementidname;
-        this.styles = myelementrequires.styles;
-        this.options = myelementrequires.options;
+    // constructor(myelementrequires: AllElementsRequire) {
+    //     this.elementtype = myelementrequires.elementtype;
+    //     this.elementidname = myelementrequires.elementidname;
+    //     this.styles = myelementrequires.styles;
+    //     this.options = myelementrequires.options;
+    // }
+    constructor(elementtype: string, elementidname: string, styles: string, options: AllOptionsRequire) {
+            this.elementtype = elementtype;
+            this.elementidname = elementidname;
+            this.styles = styles;
+            this.options = options;
+            this.options.optiontype = options.optiontype; 
+            this.options.optiondata = options.optiondata;
     }
     makeWrapperDiv() {
         // create wrapper div on page to contain everything else on the page.
@@ -137,13 +145,34 @@ class ShowWeakneses {
 }
 
 
-// works:
-let selecttest: makeSelectBox = new makeSelectBox();
-// for each item we want to add, execute displayElement()
-selecttest.addElement('testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
+// testing things out:
 
-//selecttest.addElement('div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', null); // need to pass content!
+let selecttest: makeSelectBox = new makeSelectBox('select', 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', {optiontype: 'selectoptions', optiondata: PokemonTypes});
 
-selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
+selecttest.makeWrapperDiv();
+selecttest.addElement();
 
-//selecttest.addElement('div2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', null);
+let divtest: makeDiv = new makeDiv('div', 'div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', {optiontype: 'text', optiondata: 'I like cats'});
+
+divtest.addElement();
+
+// // works:
+// let selecttest: makeSelectBox = new makeSelectBox();
+// let divtest: makeDiv = new makeDiv();
+// // for each item we want to add, execute displayElement()
+// selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
+
+// divtest.addElement('div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', 'cats'); // need to pass content!
+
+// selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
+
+// divtest.addElement('div2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', 'i like cats');
+
+
+// // elementtype: string;
+// // elementidname: string;
+// // styles: string;
+// // options: AllOptionsRequire;
+
+// 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes
+

@@ -44,20 +44,34 @@ var CatTypes;
     CatTypes[CatTypes["Bean"] = 3] = "Bean";
 })(CatTypes || (CatTypes = {}));
 /**
- * Class Responsibility: Show default page display.
- *
- * In this particular app, the select box
- * for the pokemon types and the div where the weaknesses will show should be created.
- * Code could be reused, however, to build other elements.
+ * Class Responsibility: Populating fields to build the html element, and
+ * build the wrapper div that encloses all other html elements.
  */
 var DisplayElements = /** @class */ (function () {
-    function DisplayElements() {
-        // create wrapper div on page to contain the rest of it.
+    // constructor(myelementrequires: AllElementsRequire) {
+    //     this.elementtype = myelementrequires.elementtype;
+    //     this.elementidname = myelementrequires.elementidname;
+    //     this.styles = myelementrequires.styles;
+    //     this.options = myelementrequires.options;
+    // }
+    function DisplayElements(elementtype, elementidname, styles, options) {
+        this.elementtype = elementtype;
+        this.elementidname = elementidname;
+        this.styles = styles;
+        this.options = options;
+        this.options.optiontype = options.optiontype;
+        this.options.optiondata = options.optiondata;
+    }
+    DisplayElements.prototype.makeWrapperDiv = function () {
+        // create wrapper div on page to contain everything else on the page.
         var wrapperdiv = document.createElement('div');
         wrapperdiv.id = 'wrapper';
-        wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;';
+        //wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;'; - maybe don't want here.
         document.body.appendChild(wrapperdiv);
-    }
+    };
+    DisplayElements.prototype.addAllToPage = function (addtopage) {
+        // print all the html elements in the array to the page.
+    };
     return DisplayElements;
 }());
 /**
@@ -68,15 +82,16 @@ var makeSelectBox = /** @class */ (function (_super) {
     function makeSelectBox() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    makeSelectBox.prototype.addElement = function (elementidname, styles, options) {
-        var elementtype = 'select';
-        var addtopage = document.createElement(elementtype);
-        addtopage.id = elementidname;
+    makeSelectBox.prototype.addElement = function () {
+        var addtopage = document.createElement(this.elementtype);
+        addtopage.id = this.elementidname;
+        // make the top default option in the select box:
         var defaultoption = document.createElement('option');
         defaultoption.value = '';
         defaultoption.text = 'Select one...';
         addtopage.appendChild(defaultoption);
-        for (var enumItemName in options) {
+        // make all the other options in the select box:
+        for (var enumItemName in this.options.optiondata) {
             // only use the names in the enum.
             if (isNaN(parseInt(enumItemName, 10))) {
                 var option = document.createElement('option');
@@ -85,7 +100,7 @@ var makeSelectBox = /** @class */ (function (_super) {
                 addtopage.appendChild(option);
             }
         }
-        addtopage.style.cssText = styles;
+        addtopage.style.cssText = this.styles;
         document.getElementById('wrapper').appendChild(addtopage);
         return;
     };
@@ -99,6 +114,15 @@ var makeDiv = /** @class */ (function (_super) {
     function makeDiv() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    makeDiv.prototype.addElement = function () {
+        var addtopage = document.createElement(this.elementtype);
+        addtopage.id = this.elementidname;
+        // write the text, which is in optiondata, into the div.
+        addtopage.textContent = this.options.optiondata;
+        addtopage.style.cssText = this.styles;
+        document.getElementById('wrapper').appendChild(addtopage);
+        return;
+    };
     return makeDiv;
 }(DisplayElements));
 /**
@@ -109,11 +133,22 @@ var ShowWeakneses = /** @class */ (function () {
     }
     return ShowWeakneses;
 }());
-// works:
-//let wrappertest: DisplayElements = new DisplayElements();
-var selecttest = new makeSelectBox();
-// for each item we want to add, execute displayElement()
-selecttest.addElement('testselect', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
-//selecttest.addElement('div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', null); // need to pass content!
-selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
-//selecttest.addElement('div2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', null); 
+// testing things out:
+var selecttest = new makeSelectBox('select', 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', { optiontype: 'selectoptions', optiondata: PokemonTypes });
+selecttest.makeWrapperDiv();
+selecttest.addElement();
+var divtest = new makeDiv('div', 'div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', { optiontype: 'text', optiondata: 'I like cats' });
+divtest.addElement();
+// // works:
+// let selecttest: makeSelectBox = new makeSelectBox();
+// let divtest: makeDiv = new makeDiv();
+// // for each item we want to add, execute displayElement()
+// selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes);
+// divtest.addElement('div1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', 'cats'); // need to pass content!
+// selecttest.addElement('testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', CatTypes);
+// divtest.addElement('div2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', 'i like cats');
+// // elementtype: string;
+// // elementidname: string;
+// // styles: string;
+// // options: AllOptionsRequire;
+// 'testselect2', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', PokemonTypes
