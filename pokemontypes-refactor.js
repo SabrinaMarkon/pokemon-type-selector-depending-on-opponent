@@ -46,6 +46,7 @@ var CatTypes;
 /**
  * Class Responsibility: Populating fields to build the html element, and
  * build the wrapper div that encloses all other html elements.
+ * Abstract classes are base classes from which other classes may be derived. They may not be instantiated directly.
  */
 var DisplayElements = /** @class */ (function () {
     function DisplayElements(myelementrequires) {
@@ -53,16 +54,11 @@ var DisplayElements = /** @class */ (function () {
         this.elementidname = myelementrequires.elementidname;
         this.styles = myelementrequires.styles;
         this.options = myelementrequires.options;
+        if (this.elementtype === 'img') {
+            this.imgsrc = myelementrequires.options.optiondata.imgsrc;
+            this.imgalt = myelementrequires.options.optiondata.imgalt;
+        }
     }
-    // old way: passed arguments directly into constructor rather than interface parameter.
-    // constructor(elementtype: string, elementidname: string, styles: string, options: AllOptionsRequire) {
-    //         this.elementtype = elementtype;
-    //         this.elementidname = elementidname;
-    //         this.styles = styles;
-    //         this.options = options;
-    //         this.options.optiontype = options.optiontype; 
-    //         this.options.optiondata = options.optiondata;
-    // }
     DisplayElements.prototype.makeWrapperDiv = function () {
         // create wrapper div on page to contain everything else on the page.
         var wrapperdiv = document.createElement('div');
@@ -142,7 +138,7 @@ var makeImage = /** @class */ (function (_super) {
         // add the styles:
         addtopage.style.cssText = this.styles;
         // add the src and alt attributes, which ar e contained in an AllImagesRequire object in optiondata.
-        var optiondata = this.options.optiondata; // ?? not sure this is right to enforce the intaerface.
+        var optiondata = this.options.optiondata; // ?? not sure this is right to enforce the interface ???????? figure out!
         addtopage.setAttribute('src', optiondata.imgsrc);
         addtopage.setAttribute('alt', optiondata.imgalt);
         document.getElementById('wrapper').appendChild(addtopage);
@@ -153,15 +149,23 @@ var makeImage = /** @class */ (function (_super) {
 /**
  * Class Responsibility: Show weaknesses of selected pokemon type.
  */
-var ShowWeakneses = /** @class */ (function () {
-    function ShowWeakneses() {
+var ShowWeaknesses = /** @class */ (function () {
+    function ShowWeaknesses(selectvalue, weaknessdiv) {
+        this.selectvalue = selectvalue;
+        this.weaknessdiv = weaknessdiv;
     }
-    return ShowWeakneses;
+    ShowWeaknesses.prototype.makeWeaknessDiv = function () {
+        this.weakagainst = ShowWeaknesses.alltypes[this.selectvalue];
+        divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: this.weakagainst } };
+        var weaknessdivcreate = new makeDiv(divobj);
+        weaknessdivcreate.addElement();
+    };
+    return ShowWeaknesses;
 }());
 // testing things out:
 ///////////////// SELECT BOX
 // Using interface type as arguments:
-var selectobj = { elementtype: 'select', elementidname: 'testselect1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'selectoptions', optiondata: PokemonTypes } };
+var selectobj = { elementtype: 'select', elementidname: 'pokemonselect', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'selectoptions', optiondata: PokemonTypes } };
 var selecttest = new makeSelectBox(selectobj);
 // Using regular boring arguments except one uses interface type:
 // let selecttest: makeSelectBox = new makeSelectBox('select', 'testselect1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', {optiontype: 'selectoptions', optiondata: PokemonTypes});

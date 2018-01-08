@@ -40,10 +40,10 @@ enum CatTypes {
  * Classes can use these to build page elements and display them.
  */
 interface AllElementsRequire {
-    'elementtype': string;
-    'elementidname': string;
-    'styles': string;
-    'options'?: AllOptionsRequire;
+    elementtype: string;
+    elementidname: string;
+    styles: string;
+    options: AllOptionsRequire;
 }
 
 /**
@@ -54,7 +54,7 @@ interface AllElementsRequire {
  */
 interface AllOptionsRequire {
     optiontype: string;
-    optiondata: any;
+    optiondata?: any;
 }
 
 /**
@@ -71,27 +71,25 @@ interface AllImagesRequire {
 /**
  * Class Responsibility: Populating fields to build the html element, and
  * build the wrapper div that encloses all other html elements. 
+ * Abstract classes are base classes from which other classes may be derived. They may not be instantiated directly.
  */
-class DisplayElements {
+abstract class DisplayElements {
     elementtype: string;
     elementidname: string;
     styles: string;
     options: AllOptionsRequire;
+    imgsrc: AllImagesRequire;
+    imgalt: AllImagesRequire;
     constructor(myelementrequires: AllElementsRequire) {
         this.elementtype = myelementrequires.elementtype;
         this.elementidname = myelementrequires.elementidname;
         this.styles = myelementrequires.styles;
         this.options = myelementrequires.options;
+        if (this.elementtype === 'img') {
+            this.imgsrc = myelementrequires.options.optiondata.imgsrc;
+            this.imgalt = myelementrequires.options.optiondata.imgalt;
+        }
     }
-    // old way: passed arguments directly into constructor rather than interface parameter.
-    // constructor(elementtype: string, elementidname: string, styles: string, options: AllOptionsRequire) {
-    //         this.elementtype = elementtype;
-    //         this.elementidname = elementidname;
-    //         this.styles = styles;
-    //         this.options = options;
-    //         this.options.optiontype = options.optiontype; 
-    //         this.options.optiondata = options.optiondata;
-    // }
     makeWrapperDiv() {
         // create wrapper div on page to contain everything else on the page.
         let wrapperdiv: HTMLElement = document.createElement('div');
@@ -101,6 +99,9 @@ class DisplayElements {
     }
     addAllToPage(addtopage) {
         // print all the html elements in the array to the page.
+
+
+        
 
     }
 }
@@ -160,7 +161,7 @@ class makeDiv extends DisplayElements {
         // add the styles:
         addtopage.style.cssText = this.styles;
         // add the src and alt attributes, which ar e contained in an AllImagesRequire object in optiondata.
-        let optiondata: AllImagesRequire = this.options.optiondata; // ?? not sure this is right to enforce the intaerface.
+        let optiondata: AllImagesRequire = this.options.optiondata; // ?? not sure this is right to enforce the interface ???????? figure out!
         addtopage.setAttribute('src', optiondata.imgsrc);
         addtopage.setAttribute('alt', optiondata.imgalt);
         document.getElementById('wrapper').appendChild(addtopage);
@@ -171,8 +172,21 @@ class makeDiv extends DisplayElements {
 /**
  * Class Responsibility: Show weaknesses of selected pokemon type.
  */
-class ShowWeakneses {
-
+class ShowWeaknesses {
+    static alltypes: PokemonTypes;
+    selectvalue: string;
+    weaknessdiv: string;
+    weakagainst: string;
+    constructor(selectvalue: string, weaknessdiv: string) {
+        this.selectvalue = selectvalue;
+        this.weaknessdiv = weaknessdiv;
+    }
+    makeWeaknessDiv() : void {
+        this.weakagainst = ShowWeaknesses.alltypes[this.selectvalue];
+        divobj = <AllElementsRequire>{elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: this.weakagainst}};
+        let weaknessdivcreate: makeDiv = new makeDiv(divobj);
+        weaknessdivcreate.addElement();
+    }
 }
 
 
@@ -182,7 +196,7 @@ class ShowWeakneses {
 ///////////////// SELECT BOX
 
 // Using interface type as arguments:
-let selectobj: AllElementsRequire = {elementtype: 'select', elementidname: 'testselect1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'selectoptions', optiondata: PokemonTypes}};
+let selectobj: AllElementsRequire = {elementtype: 'select', elementidname: 'pokemonselect', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'selectoptions', optiondata: PokemonTypes}};
 
 let selecttest: makeSelectBox = new makeSelectBox(selectobj);
 
@@ -191,6 +205,7 @@ let selecttest: makeSelectBox = new makeSelectBox(selectobj);
 
 selecttest.makeWrapperDiv(); // we need the wrapper div first that everything else nests in. Only need to do once.
 selecttest.addElement();
+
 
 ///////////////// DIV
 
@@ -215,3 +230,5 @@ let imgtest: makeImage = new makeImage(imgobj);
 // let imgtest: makeImage = new makeImage('img', 'testimg1', 'margin: auto; padding: 20px;', {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}});
 
 imgtest.addElement();
+
+
