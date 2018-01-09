@@ -155,12 +155,24 @@ var ShowWeaknesses = /** @class */ (function () {
         this.selectvalue = selectvalue;
         this.weaknessdiv = weaknessdiv;
         this.weakagainst = this.alltypes[this.selectvalue];
-        console.log(this.weakagainst);
+        //console.log(this.weakagainst);
     }
-    ShowWeaknesses.prototype.makeWeaknessDiv = function () {
-        divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: this.weakagainst } };
+    ShowWeaknesses.prototype.replaceWeaknessDiv = function () {
+        // if there is already a weakness div showing, remove it to make way for the new one.
+        // if we wanted to append instead, comment out below if block.
+        if (document.getElementById('weaknessdiv')) {
+            var element_1 = document.getElementById('weaknessdiv');
+            element_1.parentNode.removeChild(element_1);
+        }
+        divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'Weaknesses to:' + this.weakagainst } };
         var weaknessdivcreate = new makeDiv(divobj);
         weaknessdivcreate.addElement();
+        // fooling around because they're just cute. This block at the moment is pointless otherwise:
+        var element = document.getElementById('testimg1');
+        element.parentNode.removeChild(element);
+        var imgobj = { elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'eevee.png', imgalt: 'Eevee' } } };
+        var imgtest = new makeImage(imgobj);
+        imgtest.addElement();
     };
     return ShowWeaknesses;
 }());
@@ -179,7 +191,7 @@ element.onchange = function () {
     var selectvalue = document.getElementById(selecttest.elementidname).value;
     //console.log(selectvalue);
     var weaknesses = new ShowWeaknesses(selectvalue, 'weaknessdiv');
-    weaknesses.makeWeaknessDiv();
+    weaknesses.replaceWeaknessDiv();
 };
 ///////////////// DIV
 // Using interface type as arguments:

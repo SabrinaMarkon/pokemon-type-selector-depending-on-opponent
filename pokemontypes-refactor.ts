@@ -181,12 +181,27 @@ class ShowWeaknesses {
         this.selectvalue = selectvalue;
         this.weaknessdiv = weaknessdiv;
         this.weakagainst = this.alltypes[this.selectvalue];
-        console.log(this.weakagainst);
+        //console.log(this.weakagainst);
     }
-    makeWeaknessDiv() : void {
-        divobj = <AllElementsRequire>{elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: this.weakagainst}};
+    replaceWeaknessDiv() : void {
+        // if there is already a weakness div showing, remove it to make way for the new one.
+        // if we wanted to append instead, comment out below if block.
+        if (document.getElementById('weaknessdiv')) {
+            let element = document.getElementById('weaknessdiv');
+            element.parentNode.removeChild(element);
+        }
+        divobj = <AllElementsRequire>{elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: 'Weaknesses to:' + this.weakagainst}};
         let weaknessdivcreate: makeDiv = new makeDiv(divobj);
         weaknessdivcreate.addElement();
+
+// fooling around because they're just cute. This block at the moment is pointless otherwise:
+let element = document.getElementById('testimg1');
+element.parentNode.removeChild(element);
+let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'eevee.png', imgalt: 'Eevee'}}};
+let imgtest: makeImage = new makeImage(imgobj);
+imgtest.addElement();
+
+
     }
 }
 
@@ -214,7 +229,7 @@ element.onchange = function () {
     let selectvalue: string = (<HTMLInputElement>document.getElementById(selecttest.elementidname)).value;
     //console.log(selectvalue);
     let weaknesses: ShowWeaknesses = new ShowWeaknesses(selectvalue, 'weaknessdiv');
-    weaknesses.makeWeaknessDiv();
+    weaknesses.replaceWeaknessDiv();
 }
 
 ///////////////// DIV
