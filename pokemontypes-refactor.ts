@@ -173,16 +173,17 @@ class makeDiv extends DisplayElements {
  * Class Responsibility: Show weaknesses of selected pokemon type.
  */
 class ShowWeaknesses {
-    static alltypes: PokemonTypes;
+    alltypes: object = PokemonTypes;
     selectvalue: string;
     weaknessdiv: string;
     weakagainst: string;
     constructor(selectvalue: string, weaknessdiv: string) {
         this.selectvalue = selectvalue;
         this.weaknessdiv = weaknessdiv;
+        this.weakagainst = this.alltypes[this.selectvalue];
+        console.log(this.weakagainst);
     }
     makeWeaknessDiv() : void {
-        this.weakagainst = ShowWeaknesses.alltypes[this.selectvalue];
         divobj = <AllElementsRequire>{elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: this.weakagainst}};
         let weaknessdivcreate: makeDiv = new makeDiv(divobj);
         weaknessdivcreate.addElement();
@@ -207,10 +208,13 @@ selecttest.makeWrapperDiv(); // we need the wrapper div first that everything el
 selecttest.addElement();
 
 // get the pokemon weaknesses for the selected value.
-let element = document.getElementById(selecttest.elementidname);
+let element: HTMLElement = document.getElementById(selecttest.elementidname);
+
 element.onchange = function () {
     let selectvalue: string = (<HTMLInputElement>document.getElementById(selecttest.elementidname)).value;
-    console.log(selectvalue);
+    //console.log(selectvalue);
+    let weaknesses: ShowWeaknesses = new ShowWeaknesses(selectvalue, 'weaknessdiv');
+    weaknesses.makeWeaknessDiv();
 }
 
 ///////////////// DIV

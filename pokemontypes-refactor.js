@@ -151,11 +151,13 @@ var makeImage = /** @class */ (function (_super) {
  */
 var ShowWeaknesses = /** @class */ (function () {
     function ShowWeaknesses(selectvalue, weaknessdiv) {
+        this.alltypes = PokemonTypes;
         this.selectvalue = selectvalue;
         this.weaknessdiv = weaknessdiv;
+        this.weakagainst = this.alltypes[this.selectvalue];
+        console.log(this.weakagainst);
     }
     ShowWeaknesses.prototype.makeWeaknessDiv = function () {
-        this.weakagainst = ShowWeaknesses.alltypes[this.selectvalue];
         divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: this.weakagainst } };
         var weaknessdivcreate = new makeDiv(divobj);
         weaknessdivcreate.addElement();
@@ -175,7 +177,9 @@ selecttest.addElement();
 var element = document.getElementById(selecttest.elementidname);
 element.onchange = function () {
     var selectvalue = document.getElementById(selecttest.elementidname).value;
-    console.log(selectvalue);
+    //console.log(selectvalue);
+    var weaknesses = new ShowWeaknesses(selectvalue, 'weaknessdiv');
+    weaknesses.makeWeaknessDiv();
 };
 ///////////////// DIV
 // Using interface type as arguments:
