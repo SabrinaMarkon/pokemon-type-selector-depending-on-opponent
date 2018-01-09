@@ -110,7 +110,7 @@ abstract class DisplayElements {
  * Class Responsibility: Create a select box.
  */
 class makeSelectBox extends DisplayElements {
-    addElement(): void {
+    addElement(): HTMLElement {
         let addtopage: HTMLElement = document.createElement(this.elementtype); // select
         addtopage.id = this.elementidname;
         // make the top default option in the select box:
@@ -131,7 +131,7 @@ class makeSelectBox extends DisplayElements {
         // add the styles:
         addtopage.style.cssText = this.styles; 
         document.getElementById('wrapper').appendChild(addtopage);
-        return;
+        return addtopage;
     }
 }
 
@@ -206,6 +206,12 @@ let selecttest: makeSelectBox = new makeSelectBox(selectobj);
 selecttest.makeWrapperDiv(); // we need the wrapper div first that everything else nests in. Only need to do once.
 selecttest.addElement();
 
+// get the pokemon weaknesses for the selected value.
+let element = document.getElementById(selecttest.elementidname);
+element.onchange = function () {
+    let selectvalue: string = (<HTMLInputElement>document.getElementById(selecttest.elementidname)).value;
+    console.log(selectvalue);
+}
 
 ///////////////// DIV
 

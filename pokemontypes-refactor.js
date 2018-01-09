@@ -100,7 +100,7 @@ var makeSelectBox = /** @class */ (function (_super) {
         // add the styles:
         addtopage.style.cssText = this.styles;
         document.getElementById('wrapper').appendChild(addtopage);
-        return;
+        return addtopage;
     };
     return makeSelectBox;
 }(DisplayElements));
@@ -171,6 +171,12 @@ var selecttest = new makeSelectBox(selectobj);
 // let selecttest: makeSelectBox = new makeSelectBox('select', 'testselect1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', {optiontype: 'selectoptions', optiondata: PokemonTypes});
 selecttest.makeWrapperDiv(); // we need the wrapper div first that everything else nests in. Only need to do once.
 selecttest.addElement();
+// get the pokemon weaknesses for the selected value.
+var element = document.getElementById(selecttest.elementidname);
+element.onchange = function () {
+    var selectvalue = document.getElementById(selecttest.elementidname).value;
+    console.log(selectvalue);
+};
 ///////////////// DIV
 // Using interface type as arguments:
 var divobj = { elementtype: 'div', elementidname: 'testdiv1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'I like cats!' } };
