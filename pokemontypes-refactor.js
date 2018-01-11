@@ -176,12 +176,26 @@ var ShowWeaknesses = /** @class */ (function () {
             var imgtest_1 = new makeImage(imgobj_1);
             imgtest_1.addElement();
         }
-        else {
+        else if (this.selectvalue === 'Fairy') {
             var element_3 = document.getElementById('testimg1');
             element_3.parentNode.removeChild(element_3);
-            var imgobj_2 = { elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'eevee.png', imgalt: 'Eevee' } } };
+            var imgobj_2 = { elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'sylveon.png', imgalt: 'Sylveon' } } };
             var imgtest_2 = new makeImage(imgobj_2);
             imgtest_2.addElement();
+        }
+        else if (this.selectvalue === 'Poison') {
+            var element_4 = document.getElementById('testimg1');
+            element_4.parentNode.removeChild(element_4);
+            var imgobj_3 = { elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'koffing.png', imgalt: 'Koffing' } } };
+            var imgtest_3 = new makeImage(imgobj_3);
+            imgtest_3.addElement();
+        }
+        else {
+            var element_5 = document.getElementById('testimg1');
+            element_5.parentNode.removeChild(element_5);
+            var imgobj_4 = { elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'eevee.png', imgalt: 'Eevee' } } };
+            var imgtest_4 = new makeImage(imgobj_4);
+            imgtest_4.addElement();
         }
         ///////////////////////////////////////////////////////// END 
     };

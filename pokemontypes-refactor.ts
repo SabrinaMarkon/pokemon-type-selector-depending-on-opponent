@@ -99,7 +99,7 @@ abstract class DisplayElements {
     }
     addAllToPage(addtopage) {
         // print all the html elements in the array to the page.
-
+        
 
         
 
@@ -202,7 +202,22 @@ class ShowWeaknesses {
             let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
             let imgtest: makeImage = new makeImage(imgobj);
             imgtest.addElement();
-        } else {
+        } 
+        else if (this.selectvalue === 'Fairy') {
+            let element = document.getElementById('testimg1');
+            element.parentNode.removeChild(element);
+            let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'sylveon.png', imgalt: 'Sylveon'}}};
+            let imgtest: makeImage = new makeImage(imgobj);
+            imgtest.addElement();
+        } 
+        else if (this.selectvalue === 'Poison') {
+            let element = document.getElementById('testimg1');
+            element.parentNode.removeChild(element);
+            let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'koffing.png', imgalt: 'Koffing'}}};
+            let imgtest: makeImage = new makeImage(imgobj);
+            imgtest.addElement();
+        } 
+        else {
             let element = document.getElementById('testimg1');
             element.parentNode.removeChild(element);
             let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'eevee.png', imgalt: 'Eevee'}}};
