@@ -63,7 +63,7 @@ var DisplayElements = /** @class */ (function () {
         // create wrapper div on page to contain everything else on the page.
         var wrapperdiv = document.createElement('div');
         wrapperdiv.id = 'wrapper';
-        //wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;'; - maybe don't want here.
+        wrapperdiv.style.cssText = 'margin: 0 auto; width: 800px; padding-top: 50px;';
         document.body.appendChild(wrapperdiv);
     };
     DisplayElements.prototype.addAllToPage = function (addtopage) {
@@ -167,12 +167,23 @@ var ShowWeaknesses = /** @class */ (function () {
         divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'Weaknesses to:' + this.weakagainst } };
         var weaknessdivcreate = new makeDiv(divobj);
         weaknessdivcreate.addElement();
+        ///////////////////////////////////////////////////////// START
         // fooling around because they're just cute. This block at the moment is pointless otherwise:
-        var element = document.getElementById('testimg1');
-        element.parentNode.removeChild(element);
-        var imgobj = { elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'eevee.png', imgalt: 'Eevee' } } };
-        var imgtest = new makeImage(imgobj);
-        imgtest.addElement();
+        if (this.selectvalue === 'Electric') {
+            var element_2 = document.getElementById('testimg1');
+            element_2.parentNode.removeChild(element_2);
+            var imgobj_1 = { elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'pikachu.jpg', imgalt: 'Pikachu' } } };
+            var imgtest_1 = new makeImage(imgobj_1);
+            imgtest_1.addElement();
+        }
+        else {
+            var element_3 = document.getElementById('testimg1');
+            element_3.parentNode.removeChild(element_3);
+            var imgobj_2 = { elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'eevee.png', imgalt: 'Eevee' } } };
+            var imgtest_2 = new makeImage(imgobj_2);
+            imgtest_2.addElement();
+        }
+        ///////////////////////////////////////////////////////// END 
     };
     return ShowWeaknesses;
 }());
@@ -195,7 +206,7 @@ element.onchange = function () {
 };
 ///////////////// DIV
 // Using interface type as arguments:
-var divobj = { elementtype: 'div', elementidname: 'testdiv1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'I like cats!' } };
+var divobj = { elementtype: 'div', elementidname: 'testdiv1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: ' ' } };
 var divtest = new makeDiv(divobj);
 // Using regular boring arguments except one uses interface type:
 // let divtest: makeDiv = new makeDiv('div', 'testdiv1', 'font: 18px Tahoma #000; margin: auto; padding: 20px;', {optiontype: 'text', optiondata: 'I like cats'});

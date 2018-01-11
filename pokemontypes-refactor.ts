@@ -94,7 +94,7 @@ abstract class DisplayElements {
         // create wrapper div on page to contain everything else on the page.
         let wrapperdiv: HTMLElement = document.createElement('div');
         wrapperdiv.id = 'wrapper';
-        //wrapperdiv.style.cssText = 'margin: 0 auto; width: 300px; padding-top: 50px;'; - maybe don't want here.
+        wrapperdiv.style.cssText = 'margin: 0 auto; width: 800px; padding-top: 50px;';
         document.body.appendChild(wrapperdiv);
     }
     addAllToPage(addtopage) {
@@ -194,12 +194,22 @@ class ShowWeaknesses {
         let weaknessdivcreate: makeDiv = new makeDiv(divobj);
         weaknessdivcreate.addElement();
 
-// fooling around because they're just cute. This block at the moment is pointless otherwise:
-let element = document.getElementById('testimg1');
-element.parentNode.removeChild(element);
-let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'eevee.png', imgalt: 'Eevee'}}};
-let imgtest: makeImage = new makeImage(imgobj);
-imgtest.addElement();
+        ///////////////////////////////////////////////////////// START
+        // fooling around because they're just cute. This block at the moment is pointless otherwise:
+        if (this.selectvalue === 'Electric') {
+            let element = document.getElementById('testimg1');
+            element.parentNode.removeChild(element);
+            let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
+            let imgtest: makeImage = new makeImage(imgobj);
+            imgtest.addElement();
+        } else {
+            let element = document.getElementById('testimg1');
+            element.parentNode.removeChild(element);
+            let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'eevee.png', imgalt: 'Eevee'}}};
+            let imgtest: makeImage = new makeImage(imgobj);
+            imgtest.addElement();
+        }
+        ///////////////////////////////////////////////////////// END 
 
 
     }
@@ -235,7 +245,7 @@ element.onchange = function () {
 ///////////////// DIV
 
 // Using interface type as arguments:
-let divobj: AllElementsRequire = {elementtype: 'div', elementidname: 'testdiv1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: 'I like cats!'}};
+let divobj: AllElementsRequire = {elementtype: 'div', elementidname: 'testdiv1', styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: ' '}};
 
 let divtest: makeDiv = new makeDiv(divobj);
 
