@@ -190,10 +190,18 @@ class ShowWeaknesses {
             let element = document.getElementById('weaknessdiv');
             element.parentNode.removeChild(element);
         }
-        divobj = <AllElementsRequire>{elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: 'Weaknesses to:' + this.weakagainst}};
+        divobj = <AllElementsRequire>{elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: 'Weak Against:' + this.weakagainst}};
         let weaknessdivcreate: makeDiv = new makeDiv(divobj);
         weaknessdivcreate.addElement();
 
+        let imageelement = document.getElementById('typeimagediv');
+        imageelement.parentNode.removeChild(imageelement);
+        let pokemonimgsrc: string = '/img' + this.selectvalue;
+        let pokemonimgalt: string = pokemonimgsrc.charAt(0).toUpperCase + '.jpg';
+        let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: pokemonimgsrc, imgalt: pokemonimgalt}}};
+        let imgtest: makeImage = new makeImage(imgobj);
+        imgtest.addElement();
+        
         ///////////////////////////////////////////////////////// START
         // fooling around because they're just cute. This block at the moment is pointless otherwise:
         if (this.selectvalue === 'Electric') {
@@ -272,7 +280,7 @@ divtest.addElement();
 ///////////////// IMAGE
 
 // Using interface type as arguments:
-let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
+let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'typeimagediv', styles: 'margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
 
 let imgtest: makeImage = new makeImage(imgobj);
 

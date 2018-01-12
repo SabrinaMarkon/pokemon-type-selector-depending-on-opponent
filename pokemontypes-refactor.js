@@ -164,9 +164,16 @@ var ShowWeaknesses = /** @class */ (function () {
             var element_1 = document.getElementById('weaknessdiv');
             element_1.parentNode.removeChild(element_1);
         }
-        divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'Weaknesses to:' + this.weakagainst } };
+        divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'Weak Against:' + this.weakagainst } };
         var weaknessdivcreate = new makeDiv(divobj);
         weaknessdivcreate.addElement();
+        var imageelement = document.getElementById('typeimagediv');
+        imageelement.parentNode.removeChild(imageelement);
+        var pokemonimgsrc = '/img' + this.selectvalue;
+        var pokemonimgalt = pokemonimgsrc.charAt(0).toUpperCase + '.jpg';
+        var imgobj = { elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: pokemonimgsrc, imgalt: pokemonimgalt } } };
+        var imgtest = new makeImage(imgobj);
+        imgtest.addElement();
         ///////////////////////////////////////////////////////// START
         // fooling around because they're just cute. This block at the moment is pointless otherwise:
         if (this.selectvalue === 'Electric') {
@@ -227,7 +234,7 @@ var divtest = new makeDiv(divobj);
 divtest.addElement();
 ///////////////// IMAGE
 // Using interface type as arguments:
-var imgobj = { elementtype: 'img', elementidname: 'testimg1', styles: 'margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'pikachu.jpg', imgalt: 'Pikachu' } } };
+var imgobj = { elementtype: 'img', elementidname: 'typeimagediv', styles: 'margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'pikachu.jpg', imgalt: 'Pikachu' } } };
 var imgtest = new makeImage(imgobj);
 // Using regular boring arguments except one uses interface type:
 // let imgtest: makeImage = new makeImage('img', 'testimg1', 'margin: auto; padding: 20px;', {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}});
