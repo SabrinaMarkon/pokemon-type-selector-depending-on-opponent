@@ -196,42 +196,42 @@ class ShowWeaknesses {
 
         let imageelement = document.getElementById('typeimagediv');
         imageelement.parentNode.removeChild(imageelement);
-        let pokemonimgsrc: string = '/img' + this.selectvalue;
-        let pokemonimgalt: string = pokemonimgsrc.charAt(0).toUpperCase + '.jpg';
+        let pokemonimgsrc: string = 'img/' + this.selectvalue + '.png';
+        let pokemonimgalt: string = this.selectvalue;
         let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: pokemonimgsrc, imgalt: pokemonimgalt}}};
         let imgtest: makeImage = new makeImage(imgobj);
         imgtest.addElement();
         
         ///////////////////////////////////////////////////////// START
         // fooling around because they're just cute. This block at the moment is pointless otherwise:
-        if (this.selectvalue === 'Electric') {
-            let element = document.getElementById('testimg1');
-            element.parentNode.removeChild(element);
-            let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
-            let imgtest: makeImage = new makeImage(imgobj);
-            imgtest.addElement();
-        } 
-        else if (this.selectvalue === 'Fairy') {
-            let element = document.getElementById('testimg1');
-            element.parentNode.removeChild(element);
-            let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'sylveon.png', imgalt: 'Sylveon'}}};
-            let imgtest: makeImage = new makeImage(imgobj);
-            imgtest.addElement();
-        } 
-        else if (this.selectvalue === 'Poison') {
-            let element = document.getElementById('testimg1');
-            element.parentNode.removeChild(element);
-            let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'koffing.png', imgalt: 'Koffing'}}};
-            let imgtest: makeImage = new makeImage(imgobj);
-            imgtest.addElement();
-        } 
-        else {
-            let element = document.getElementById('testimg1');
-            element.parentNode.removeChild(element);
-            let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'eevee.png', imgalt: 'Eevee'}}};
-            let imgtest: makeImage = new makeImage(imgobj);
-            imgtest.addElement();
-        }
+        // if (this.selectvalue === 'Electric') {
+        //     let element = document.getElementById('testimg1');
+        //     element.parentNode.removeChild(element);
+        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
+        //     let imgtest: makeImage = new makeImage(imgobj);
+        //     imgtest.addElement();
+        // } 
+        // else if (this.selectvalue === 'Fairy') {
+        //     let element = document.getElementById('testimg1');
+        //     element.parentNode.removeChild(element);
+        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'sylveon.png', imgalt: 'Sylveon'}}};
+        //     let imgtest: makeImage = new makeImage(imgobj);
+        //     imgtest.addElement();
+        // } 
+        // else if (this.selectvalue === 'Poison') {
+        //     let element = document.getElementById('testimg1');
+        //     element.parentNode.removeChild(element);
+        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'koffing.png', imgalt: 'Koffing'}}};
+        //     let imgtest: makeImage = new makeImage(imgobj);
+        //     imgtest.addElement();
+        // } 
+        // else {
+        //     let element = document.getElementById('testimg1');
+        //     element.parentNode.removeChild(element);
+        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'eevee.png', imgalt: 'Eevee'}}};
+        //     let imgtest: makeImage = new makeImage(imgobj);
+        //     imgtest.addElement();
+        // }
         ///////////////////////////////////////////////////////// END 
 
 
@@ -280,7 +280,7 @@ divtest.addElement();
 ///////////////// IMAGE
 
 // Using interface type as arguments:
-let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'typeimagediv', styles: 'margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
+let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'Pikachu.png', imgalt: 'Pikachu'}}};
 
 let imgtest: makeImage = new makeImage(imgobj);
 
