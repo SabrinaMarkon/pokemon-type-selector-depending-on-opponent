@@ -190,51 +190,28 @@ class ShowWeaknesses {
             let element = document.getElementById('weaknessdiv');
             element.parentNode.removeChild(element);
         }
+
+        if (this.selectvalue) {
         divobj = <AllElementsRequire>{elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: {optiontype: 'text', optiondata: 'Weak Against:' + this.weakagainst}};
         let weaknessdivcreate: makeDiv = new makeDiv(divobj);
         weaknessdivcreate.addElement();
+        }
 
         let imageelement = document.getElementById('typeimagediv');
         imageelement.parentNode.removeChild(imageelement);
-        let pokemonimgsrc: string = 'img/' + this.selectvalue + '.png';
-        let pokemonimgalt: string = this.selectvalue;
+        let pokemonimgsrc: string;
+        let pokemonimgalt: string
+        if (this.selectvalue) {
+            pokemonimgsrc = 'img/' + this.selectvalue + '.png';
+            pokemonimgalt = this.selectvalue;
+        } else {
+            pokemonimgsrc = 'img/Pikachu.png';
+            pokemonimgalt = 'Pikachu'; 
+        }
         let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: pokemonimgsrc, imgalt: pokemonimgalt}}};
         let imgtest: makeImage = new makeImage(imgobj);
         imgtest.addElement();
         
-        ///////////////////////////////////////////////////////// START
-        // fooling around because they're just cute. This block at the moment is pointless otherwise:
-        // if (this.selectvalue === 'Electric') {
-        //     let element = document.getElementById('testimg1');
-        //     element.parentNode.removeChild(element);
-        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
-        //     let imgtest: makeImage = new makeImage(imgobj);
-        //     imgtest.addElement();
-        // } 
-        // else if (this.selectvalue === 'Fairy') {
-        //     let element = document.getElementById('testimg1');
-        //     element.parentNode.removeChild(element);
-        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'sylveon.png', imgalt: 'Sylveon'}}};
-        //     let imgtest: makeImage = new makeImage(imgobj);
-        //     imgtest.addElement();
-        // } 
-        // else if (this.selectvalue === 'Poison') {
-        //     let element = document.getElementById('testimg1');
-        //     element.parentNode.removeChild(element);
-        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'koffing.png', imgalt: 'Koffing'}}};
-        //     let imgtest: makeImage = new makeImage(imgobj);
-        //     imgtest.addElement();
-        // } 
-        // else {
-        //     let element = document.getElementById('testimg1');
-        //     element.parentNode.removeChild(element);
-        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'eevee.png', imgalt: 'Eevee'}}};
-        //     let imgtest: makeImage = new makeImage(imgobj);
-        //     imgtest.addElement();
-        // }
-        ///////////////////////////////////////////////////////// END 
-
-
     }
 }
 
@@ -280,7 +257,7 @@ divtest.addElement();
 ///////////////// IMAGE
 
 // Using interface type as arguments:
-let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'Pikachu.png', imgalt: 'Pikachu'}}};
+let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'img/Pikachu.png', imgalt: 'Pikachu'}}};
 
 let imgtest: makeImage = new makeImage(imgobj);
 

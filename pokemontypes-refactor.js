@@ -164,47 +164,26 @@ var ShowWeaknesses = /** @class */ (function () {
             var element_1 = document.getElementById('weaknessdiv');
             element_1.parentNode.removeChild(element_1);
         }
-        divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'Weak Against:' + this.weakagainst } };
-        var weaknessdivcreate = new makeDiv(divobj);
-        weaknessdivcreate.addElement();
+        if (this.selectvalue) {
+            divobj = { elementtype: 'div', elementidname: this.weaknessdiv, styles: 'font: 18px Tahoma #000; margin: auto; padding: 20px;', options: { optiontype: 'text', optiondata: 'Weak Against:' + this.weakagainst } };
+            var weaknessdivcreate = new makeDiv(divobj);
+            weaknessdivcreate.addElement();
+        }
         var imageelement = document.getElementById('typeimagediv');
         imageelement.parentNode.removeChild(imageelement);
-        var pokemonimgsrc = 'img/' + this.selectvalue + '.png';
-        var pokemonimgalt = this.selectvalue;
+        var pokemonimgsrc;
+        var pokemonimgalt;
+        if (this.selectvalue) {
+            pokemonimgsrc = 'img/' + this.selectvalue + '.png';
+            pokemonimgalt = this.selectvalue;
+        }
+        else {
+            pokemonimgsrc = 'img/Pikachu.png';
+            pokemonimgalt = 'Pikachu';
+        }
         var imgobj = { elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: pokemonimgsrc, imgalt: pokemonimgalt } } };
         var imgtest = new makeImage(imgobj);
         imgtest.addElement();
-        ///////////////////////////////////////////////////////// START
-        // fooling around because they're just cute. This block at the moment is pointless otherwise:
-        // if (this.selectvalue === 'Electric') {
-        //     let element = document.getElementById('testimg1');
-        //     element.parentNode.removeChild(element);
-        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}}};
-        //     let imgtest: makeImage = new makeImage(imgobj);
-        //     imgtest.addElement();
-        // } 
-        // else if (this.selectvalue === 'Fairy') {
-        //     let element = document.getElementById('testimg1');
-        //     element.parentNode.removeChild(element);
-        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'sylveon.png', imgalt: 'Sylveon'}}};
-        //     let imgtest: makeImage = new makeImage(imgobj);
-        //     imgtest.addElement();
-        // } 
-        // else if (this.selectvalue === 'Poison') {
-        //     let element = document.getElementById('testimg1');
-        //     element.parentNode.removeChild(element);
-        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'koffing.png', imgalt: 'Koffing'}}};
-        //     let imgtest: makeImage = new makeImage(imgobj);
-        //     imgtest.addElement();
-        // } 
-        // else {
-        //     let element = document.getElementById('testimg1');
-        //     element.parentNode.removeChild(element);
-        //     let imgobj: AllElementsRequire = {elementtype: 'img', elementidname: 'testimg1', styles: 'width: 480px; margin: auto; padding: 20px;', options: {optiontype: 'attributes', optiondata: {imgsrc: 'eevee.png', imgalt: 'Eevee'}}};
-        //     let imgtest: makeImage = new makeImage(imgobj);
-        //     imgtest.addElement();
-        // }
-        ///////////////////////////////////////////////////////// END 
     };
     return ShowWeaknesses;
 }());
@@ -234,7 +213,7 @@ var divtest = new makeDiv(divobj);
 divtest.addElement();
 ///////////////// IMAGE
 // Using interface type as arguments:
-var imgobj = { elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'Pikachu.png', imgalt: 'Pikachu' } } };
+var imgobj = { elementtype: 'img', elementidname: 'typeimagediv', styles: 'width: 480px; margin: auto; padding: 20px;', options: { optiontype: 'attributes', optiondata: { imgsrc: 'img/Pikachu.png', imgalt: 'Pikachu' } } };
 var imgtest = new makeImage(imgobj);
 // Using regular boring arguments except one uses interface type:
 // let imgtest: makeImage = new makeImage('img', 'testimg1', 'margin: auto; padding: 20px;', {optiontype: 'attributes', optiondata: {imgsrc: 'pikachu.jpg', imgalt: 'Pikachu'}});
